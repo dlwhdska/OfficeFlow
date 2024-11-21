@@ -2,6 +2,8 @@ package com.of.stuff.dto;
 
 import java.time.LocalDate;
 
+import com.of.stuff.entity.StuffReqStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +22,8 @@ public class StuffReqDTO {
 	private String stuffName;
 	private LocalDate reqDate;
 	private int quantity;
-	private int status;
 	private String purpose;
 	private String reject;
+	private StuffReqStatus status;
 	
 }

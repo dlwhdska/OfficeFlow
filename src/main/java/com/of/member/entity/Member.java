@@ -2,7 +2,10 @@ package com.of.member.entity;
 
 import com.of.department.entity.Department;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,5 +47,10 @@ public class Member {
 	
 	// 전화번호
 	private String tel;
+	
+	// 역할(직원 : MEMBER, 관리자 : ADMIN)
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Role role;
 	
 }

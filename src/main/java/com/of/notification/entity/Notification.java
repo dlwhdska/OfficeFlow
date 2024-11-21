@@ -35,18 +35,15 @@ public class Notification {
 	@JoinColumn(nullable = false)
 	private Member memberId;
 	
-	// 알림타입(NOTICE, MEETING, STUFF)
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private NotificationType type;
-	
 	// 알림내용
 	private String content;
 	
 	// 알림생성일시
 	private LocalDate createdAt;
 	
-	// 상태(0 : 확인, -1 : 미확인)
-	private int status;
+	// 상태(CONFIRMED : 확인, UNCONFIRMED : 미확인)
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private NotificationStatus status;
 	
 }

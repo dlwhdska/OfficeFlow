@@ -1,5 +1,7 @@
 package com.of.member.dto;
 
+import com.of.member.entity.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,5 +22,6 @@ public class MemberDTO {
 	private String password;
 	private String position;
 	private String tel;
+	private Role role;
 	
 }
