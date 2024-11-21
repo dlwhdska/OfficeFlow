@@ -3,6 +3,8 @@ package com.of.attendance.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.of.attendance.entity.AttendanceStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +23,6 @@ public class AttendanceDTO {
 	private LocalDate attendanceDate;
 	private LocalTime startTime;
 	private LocalTime endTime;
-	private int status;
+	private AttendanceStatus status;
 	
 }

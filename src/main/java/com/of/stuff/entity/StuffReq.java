@@ -4,7 +4,10 @@ import java.time.LocalDate;
 
 import com.of.member.entity.Member;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,13 +46,15 @@ public class StuffReq {
 	// 요청 수량
 	private int quantity;
 	
-	// 요청상태(0 : 승인대기, 1 : 승인, 2 : 반려)
-	private int status;
-	
 	// 신청사유
 	private String purpose;
 	
 	// 반려사유
 	private String reject;
+	
+	// 요청상태(PENDING : 승인대기, APPROVED : 승인, REJECTED : 반려)
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private StuffReqStatus status;
 	
 }

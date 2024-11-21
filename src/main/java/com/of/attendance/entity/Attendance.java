@@ -5,7 +5,10 @@ import java.time.LocalTime;
 
 import com.of.member.entity.Member;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,7 +45,9 @@ public class Attendance {
 	// 퇴근시간
 	private LocalTime endTime;
 	
-	// 상태(0 : 출석, 1 : 퇴근, 2 : 지각, 3 : 결근, 4 : 병가, 5 : 휴가)
-	private int status;
+	// 상태(PRESENT : 출석, OFF_WORK : 퇴근, LATE : 지각, ABSENT : 결근, SICK_LEAVE : 병가, VACATION : 휴가)
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private AttendanceStatus status;
 	
 }
