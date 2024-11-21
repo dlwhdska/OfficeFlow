@@ -12,10 +12,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Builder
 @Entity
 @Getter
 @Setter
@@ -30,8 +32,8 @@ public class Member {
 	
 	// 부서번호
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Department departmentId;
+	@JoinColumn(nullable = false, name = "departmentId")
+	private Department department;
 	
 	// 이름
 	private String name;

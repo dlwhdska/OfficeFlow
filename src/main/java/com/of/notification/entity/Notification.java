@@ -32,8 +32,8 @@ public class Notification {
 	
 	// 사원번호
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Member memberId;
+	@JoinColumn(nullable = false, name = "memberId")
+	private Member member;
 	
 	// 알림내용
 	private String content;

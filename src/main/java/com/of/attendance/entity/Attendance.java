@@ -33,8 +33,8 @@ public class Attendance {
 	
 	// 사원번호
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Member memberId;
+	@JoinColumn(nullable = false, name = "memberId")
+	private Member member;
 	
 	// 일자
 	private LocalDate attendanceDate;
@@ -45,7 +45,7 @@ public class Attendance {
 	// 퇴근시간
 	private LocalTime endTime;
 	
-	// 상태(PRESENT : 출석, OFF_WORK : 퇴근, LATE : 지각, ABSENT : 결근, SICK_LEAVE : 병가, VACATION : 휴가)
+	// 상태(CLOCK_IN : 출석, CLOCK_OUT : 퇴근, OFF_WORK : 조퇴, LATE : 지각, ABSENT : 결근, SICK_LEAVE : 병가, VACATION : 휴가)
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private AttendanceStatus status;

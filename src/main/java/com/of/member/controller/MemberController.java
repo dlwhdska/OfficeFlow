@@ -31,7 +31,7 @@ public class MemberController {
 			MemberDTO memberDTO = memberService.login(email, password);
 			session.setAttribute("loginMember", memberDTO);
 			if (Role.MEMBER.equals(memberDTO.getRole())) {
-				return "redirect:/";
+				return "redirect:/main";
 			} else {
 				return "redirect:/admin";
 			}

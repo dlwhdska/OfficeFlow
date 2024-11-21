@@ -24,7 +24,7 @@ public class MemberService {
 		
 		return MemberDTO.builder()
 				.id(member.getId())
-				.departmentName(member.getDepartmentId().getName())
+				.departmentName(member.getDepartment().getName())
 				.name(member.getName())
 				.email(member.getEmail())
 				.password(member.getPassword())

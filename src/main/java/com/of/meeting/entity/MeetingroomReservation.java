@@ -30,13 +30,13 @@ public class MeetingroomReservation {
 
 	// 회의실번호
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private MeetingroomDetail meetingroomId;
+	@JoinColumn(nullable = false, name = "meetingroomId")
+	private MeetingroomDetail meetingroom;
 
 	// 사원번호(예약자)
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Member memberId;
+	@JoinColumn(nullable = false, name = "memberId")
+	private Member member;
 
 	// 회의날짜
 	private LocalDate meetingDate;

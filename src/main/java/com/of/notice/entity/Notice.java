@@ -29,8 +29,8 @@ public class Notice {
 	
 	// 사원번호
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Member memberId;
+	@JoinColumn(nullable = false, name = "memberId")
+	private Member member;
 	
 	// 제목
 	private String title;

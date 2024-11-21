@@ -29,8 +29,8 @@ public class Schedule {
 	
 	// 사원번호
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Member memberId;
+	@JoinColumn(nullable = false, name = "memberId")
+	private Member member;
 	
 	// 일정제목
 	private String title;

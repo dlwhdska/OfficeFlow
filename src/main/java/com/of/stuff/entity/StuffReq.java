@@ -32,13 +32,13 @@ public class StuffReq {
 	
 	// 사원번호
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Member memberId;
+	@JoinColumn(nullable = false, name = "memberId")
+	private Member member;
 	
 	// 비품번호
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Stuff stuffId;
+	@JoinColumn(nullable = false, name = "stuffId")
+	private Stuff stuff;
 	
 	// 요청일시
 	private LocalDate reqDate;

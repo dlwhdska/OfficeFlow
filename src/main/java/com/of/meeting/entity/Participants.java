@@ -27,12 +27,12 @@ public class Participants {
 	
 	// 사원번호
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Member memberId;
+	@JoinColumn(nullable = false, name = "memberId")
+	private Member member;
 
 	// 회의실예약번호
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private MeetingroomReservation meetingId;
+	@JoinColumn(nullable = false, name = "meetingId")
+	private MeetingroomReservation meeting;
 	
 }
