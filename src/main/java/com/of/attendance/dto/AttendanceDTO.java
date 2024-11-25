@@ -24,5 +24,6 @@ public class AttendanceDTO {
 	private LocalTime startTime;
 	private LocalTime endTime;
 	private AttendanceStatus status;
+	private String statusText;
 	
 }
