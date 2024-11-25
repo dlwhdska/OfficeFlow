@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<a href="/attendance/attendanceList">go attendanceList</a>
+	<div id="currentTime"></div>
+	<div>출근시간 : 
+		<span id="clockInTime">
+			<span th:if="${todayAttendanceStartTime != null && todayAttendanceStartTime.startTime != null}" 
+          		th:text="${#temporals.format(todayAttendanceStartTime.startTime, 'HH시 mm분 ss초')}">
+          	</span>
+    		<span th:if="${todayAttendanceStartTime == null || todayAttendanceStartTime.startTime == null}">
+    		</span>
+		</span>
+	</div>
+	<div>퇴근시간 : 
+		<span id="clockOutTime">
+			<span th:if="${todayAttendanceEndTime != null && todayAttendanceEndTime.endTime != null}" 
+          		th:text="${#temporals.format(todayAttendanceEndTime.endTime, 'HH시 mm분 ss초')}">
+          	</span>
+    		<span th:if="${todayAttendanceEndTime == null || todayAttendanceEndTime.endTime == null}">
+    		</span>
+		</span>
+	</div>
+	<button onclick="clockIn()">출근</button>
+	<button onclick="clockOut()">퇴근</button>
+	
+	<script src="js/main.js"></script>
 </body>
 </html>
