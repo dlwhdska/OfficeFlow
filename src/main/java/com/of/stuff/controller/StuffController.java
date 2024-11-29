@@ -27,11 +27,7 @@ public class StuffController {
 	private final StuffReqService stuffReqService;
 	
 	@GetMapping("/stuff/stuffReqList")
-	public String getStuffReqList(
-	    @PageableDefault(size = 10, sort = "reqDate", direction = Sort.Direction.DESC) Pageable pageable,
-	    @RequestParam(name = "status", required = false, defaultValue = "all") String status,
-	    @RequestParam(name = "month", required = false, defaultValue = "all") String month,
-	    Model model, HttpSession session) {
+	public String getStuffReqList(@PageableDefault(size = 10, sort = {"reqDate", "id"}, direction = Sort.Direction.DESC) Pageable pageable, @RequestParam(name = "status", required = false, defaultValue = "all") String status, @RequestParam(name = "month", required = false, defaultValue = "all") String month, Model model, HttpSession session) {
 
 	    MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 
