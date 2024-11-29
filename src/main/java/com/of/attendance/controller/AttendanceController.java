@@ -41,6 +41,7 @@ public class AttendanceController {
 		}
 		
 		model.addAttribute("attendancePage", attendancePage);
+		model.addAttribute("month", month);
 		
 		return "attendance/attendanceList";
 	}
