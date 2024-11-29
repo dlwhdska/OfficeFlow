@@ -24,6 +24,6 @@ public class StuffReqDTO {
 	private int quantity;
 	private String purpose;
 	private String reject;
-	private StuffReqStatus status;
+	private String statusText;
 	
 }

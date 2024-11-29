@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="row">
+	    <div class="col-md-4">
+	        <div class="input-group">
+	            <select id="statusFilter" class="form-select">
+				    <option value="all" th:selected="${not #strings.equals(status, 'all')}">전체</option>
+				    <option value="PENDING" th:selected="${#strings.equals(status, 'PENDING')}">승인대기</option>
+				    <option value="APPROVED" th:selected="${#strings.equals(status, 'APPROVED')}">승인</option>
+				    <option value="REJECTED" th:selected="${#strings.equals(status, 'REJECTED')}">반려</option>
+				</select>
+				</div>
+				<div>
+				<select id="monthFilter" class="form-select">
+                    <option value="all">전체</option>
+                    <option value="1">1월</option>
+                    <option value="2">2월</option>
+                    <option value="3">3월</option>
+                    <option value="4">4월</option>
+                    <option value="5">5월</option>
+                    <option value="6">6월</option>
+                    <option value="7">7월</option>
+                    <option value="8">8월</option>
+                    <option value="9">9월</option>
+                    <option value="10">10월</option>
+                    <option value="11">11월</option>
+                    <option value="12">12월</option>
+               	</select>
+	        	</div>
+           	<button class="btn btn-primary" onclick="filterByStatusAndMonth()">조회</button>
+	    </div>
+	</div>
+	<table>
+		<thead>
+			<tr>
+				<th>요청날짜</th>
+				<th>비품명</th>
+				<th>요청수량</th>
+				<th>처리현황</th>
+				<th>상세보기</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="stuffReq : ${stuffReqPage.content}" th:data-id="${stuffReq.id}">
+				<td th:text="${stuffReq.id}" style="display:none;"></td>
+				<td th:text="${stuffReq.reqDate}"></td>
+				<td th:text="${stuffReq.stuffName}"></td>
+				<td th:text="${stuffReq.quantity}"></td>
+				<td th:text="${stuffReq.statusText}"></td>
+				<td>
+                    <a href="#" class="view-details"
+                        th:data-id="${stuffReq.id}"
+                        th:data-req-date="${stuffReq.reqDate}"
+                        th:data-stuff-name="${stuffReq.stuffName}"
+                        th:data-quantity="${stuffReq.quantity}"
+                        th:data-purpose="${stuffReq.purpose}"
+                        th:data-status="${stuffReq.statusText}"
+                        th:data-reject="${stuffReq.reject}">
+                        상세보기
+                    </a>
+                </td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<a th:href="@{/stuff/stuffReq}">비품 요청하러 가기</a>
+	<button onclick="goBack()">뒤로가기</button>
+
+	<!-- 페이지네이션 -->
+	<nav th:if="${stuffReqPage.totalPages > 0}">
+	    <ul class="pagination justify-content-center">
+	        <!-- 이전 버튼 -->
+	        <li class="page-item" th:classappend="${stuffReqPage.first} ? 'disabled'">
+	            <a class="page-link"
+	               th:href="@{/stuff/stuffReqList(page=${stuffReqPage.number - 1}, status=${status}, month=${month})}">
+	                이전
+	            </a>
+	        </li>
+	
+	        <!-- 페이지 번호들 -->
+	        <li class="page-item"
+	            th:each="pageNumber : ${#numbers.sequence(
+	                stuffReqPage.number - 2 >= 0 ? stuffReqPage.number - 2 : 0, 
+	                stuffReqPage.number + 2 < stuffReqPage.totalPages ? stuffReqPage.number + 2 : stuffReqPage.totalPages - 1)}"
+	            th:classappend="${pageNumber == stuffReqPage.number} ? 'active'">
+	            <a class="page-link"
+	               th:href="@{/stuff/stuffReqList(page=${pageNumber}, status=${status}, month=${month})}"
+	               th:text="${pageNumber + 1}">
+	            </a>
+	        </li>
+	
+	        <!-- 다음 버튼 -->
+	        <li class="page-item" th:classappend="${stuffReqPage.last} ? 'disabled'">
+	            <a class="page-link"
+	               th:href="@{/stuff/stuffReqList(page=${stuffReqPage.number + 1}, status=${status}, month=${month})}">
+	                다음
+	            </a>
+	        </li>
+	    </ul>
+	</nav>
+
+	
+	<!-- 모달 창 -->
+	<div class="modal fade" id="stuffReqDetailModal" tabindex="-1" aria-labelledby="stuffReqDetailModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="stuffReqDetailModalLabel">요청 상세보기</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" id="modal-id" />
+					<table class="table">
+						<tr>
+							<th>요청 날짜</th>
+							<td id="modal-req-date"></td>
+						</tr>
+						<tr>
+							<th>비품명</th>
+							<td id="modal-stuff-name"></td>
+						</tr>
+						<tr>
+							<th>요청수량</th>
+							<td id="modal-quantity"></td>
+						</tr>
+						<tr>
+							<th>요청사유</th>
+							<td id="modal-purpose"></td>
+						</tr>
+						<tr>
+							<th>처리현황</th>
+							<td id="modal-status"></td>
+						</tr>
+						<tr>
+							<th>반려사유</th>
+							<td id="modal-reject"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" th:data-id="${stuffReq != null ? stuffReq.id : ''}" onclick="cancelStuffReq(this)">요청취소</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<script src="/js/stuff/stuffReqList.js"></script>
+</body>
+</html>
